@@ -1,0 +1,93 @@
+{
+  "name": "OpenVoice TTS & Voice Cloning",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "tts",
+        "responseMode": "lastNode",
+        "responseData": "firstEntryJson",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Webhook (POST /tts)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [260, 300],
+      "webhookMethods": {
+        "POST": true
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const body = $json.body || {};\n\nreturn [{\n  json: {\n    text: body.text || \"\",\n    use_custom_voice: body.use_custom_voice || false,\n    language: body.language || \"EN\",\n    voice_file: body.voice_file || null,\n    file_name: body.file_name || null,\n    file_content: body.file_content || null\n  }\n}];"
+      },
+      "id": "2",
+      "name": "Extract Payload",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [520, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/tts",
+        "method": "POST",
+        "jsonParameters": true,
+        "options": {},
+        "bodyParametersJson": "={\n  \"text\": $json[\"text\"],\n  \"use_custom_voice\": $json[\"use_custom_voice\"],\n  \"language\": $json[\"language\"],\n  \"voice_file\": $json[\"voice_file\"],\n  \"file_name\": $json[\"file_name\"],\n  \"file_content\": $json[\"file_content\"]\n}"
+      },
+      "id": "3",
+      "name": "Call OpenVoice API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [800, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const input = items[0].json;\n\n// Normalize response for Streamlit\nreturn [{\n  json: {\n    success: true,\n    text_used: input.text || \"\",\n    voice_type: input.voice_type || (input.use_custom_voice ? \"custom\" : \"default\"),\n    audio_url: input.audio_url || null,\n    message: input.message || \"TTS generated\"\n  }\n}];"
+      },
+      "id": "4",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1060, 300]
+    }
+  ],
+  "connections": {
+    "Webhook (POST /tts)": {
+      "main": [
+        [
+          {
+            "node": "Extract Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Payload": {
+      "main": [
+        [
+          {
+            "node": "Call OpenVoice API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call OpenVoice API": {
+      "main": [
+        [
+          {
+            "node": "Format Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "id": "openvoice-tts-workflow"
+}
