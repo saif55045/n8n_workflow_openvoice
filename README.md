@@ -1,4 +1,4 @@
-# 🎙️ OpenVoice Voice Cloning — n8n Workflow Integration
+﻿# 🎙️ OpenVoice Voice Cloning — n8n Workflow Integration
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white)](https://python.org/)
@@ -8,6 +8,12 @@
 A self-hosted voice cloning API server powered by **OpenVoice**, integrated with **n8n** workflow automation for seamless text-to-speech (TTS) and voice cloning pipelines. This project provides a production-ready FastAPI backend with automated n8n workflows for voice upload, TTS generation, and voice cloning operations.
 
 ---
+
+
+## ðŸ–¼ï¸ Screenshots
+
+![Screenshot](assets/Screenshot%202026-06-18%20210920.png)
+
 
 ## ✨ Features
 
@@ -117,5 +123,3 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 ## 🖼️ Screenshots
 
 ![Screenshot](assets/Screenshot%202026-06-18%20210920.png)
-
-
