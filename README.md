@@ -9,8 +9,7 @@ A self-hosted voice cloning API server powered by **OpenVoice**, integrated with
 
 ---
 
-
-## ðŸ–¼ï¸ Screenshots
+## 🖼️ Screenshots
 
 ![Screenshot](assets/Screenshot%202026-06-18%20210920.png)
 
@@ -119,7 +118,3 @@ Contributions are welcome! Please fork the repository and submit a pull request.
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
-
-## 🖼️ Screenshots
-
-![Screenshot](assets/Screenshot%202026-06-18%20210920.png)
